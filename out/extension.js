@@ -47,13 +47,27 @@ function activate(context) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
-    const disposable = vscode.commands.registerCommand('vscode-local-ai-extension.helloWorld', () => {
+    const disposable = vscode.commands.registerCommand("vscode-local-ai-extension.helloWorld", () => {
         // The code you place here will be executed every time your command is executed
         // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World from vscode-local-ai-extension!');
+        vscode.window.showInformationMessage("Hello World from vscode-local-ai-extension!");
+        const panel = vscode.window.createWebviewPanel("llamaChat", "Local Ai chatbot", vscode.ViewColumn.One, { enableScripts: true });
+        panel.webview.html = getWebviewContent();
     });
     context.subscriptions.push(disposable);
 }
 // This method is called when your extension is deactivated
 function deactivate() { }
+function getWebviewContent() {
+    return /*html*/ `
+  	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<h1>Hello, world</h1>
+	</body>
+	</html>`;
+}
 //# sourceMappingURL=extension.js.map
